@@ -200,6 +200,21 @@ class TestsSearchPage:
         count_available_suggested = app.search_page.fill_data_and_get_count_suggested(TestDataInput.LONG_WORD)
         assert count_available_suggested == TestDataInput.DEFAULT_COUNT_SUGGESTED, "Long word don't show tooltip"
 
+    def test_fill_data_and_delete_checked_field_empty(self, app):
+        """
+        1.Go to Search Page
+        2.Clicked on input field
+        3.Get count suggested
+        4.Equal available and expected
+        """
+        app.search_page.open_search_page()
+        app.search_page.click_field_search()
+        app.search_page.fill_data_to_search(TestDataInput.WEATHER)
+        app.search_page.click_to_X_button()
+        assert app.search_page.return_data_attribute_value_in_element() == '', "Search field is not empty"
+
+
+
     # def test_working_toogle_delete_history(self, app):
     #     """
     #     1.Go to Search Page
