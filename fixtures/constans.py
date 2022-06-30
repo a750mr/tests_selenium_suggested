@@ -7,6 +7,8 @@ class ConstantsLocators:
     SETTING_BUTTON = (By.CSS_SELECTOR, '//*[@id="js-main-page"]/div/div/div[1]/div[2]/div[2]/div/div')
     TOOGLE_DELETE_HISTORY = (
         By.CSS_SELECTOR, '//*[@id="js-main-page"]/div/div/div[1]/div[2]/div[2]/div/div[2]/div/label/div[1]')
+    BUTTON_CLEAR_SEARCH_FIELD = (By.CSS_SELECTOR, ".Button-value")
+    INPUT_FIELD_TEXT = (By.CSS_SELECTOR, "#MSearch > input.DesktopInput-input.DesktopInput-preWrappedWhiteSpace")
 
 
 class TestDataInput:
