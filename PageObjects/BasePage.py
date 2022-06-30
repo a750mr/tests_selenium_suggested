@@ -22,6 +22,13 @@ class BasePage:
         )
         return element
 
+    def clear(self, locator, wait_time=10):
+        """
+        Clear field
+        """
+        element = self._find_element(locator, wait_time)
+        element.clear()
+
     def find_all_elements(self, locator) -> list:
         return self.app.driver.find_elements(*locator)
 
@@ -56,5 +63,7 @@ class BasePage:
 
     def get_attribute_element(self, locator, attribute: str = "innerHTML"):
         element = self._find_element(locator)
-        return element.get_attribute(attribute)
-
+        if element:
+            return element.get_attribute(attribute)
+        else:
+            return False
