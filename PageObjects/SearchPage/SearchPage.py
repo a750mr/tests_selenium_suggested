@@ -17,6 +17,9 @@ class SearchPage(BasePage):
     def fill_data_to_search(self, text) -> None:
         self.fill(ConstantsLocators.SEARCH_FIELD, text)
 
+    def delete_data_in_search_field(self) -> None:
+        self.clear(ConstantsLocators.SEARCH_FIELD)
+
     def fill_data_and_get_count_suggested(self, text: str) -> int:
         self.fill(ConstantsLocators.SEARCH_FIELD, text)
         all_suggests = self.find_all_elements(ConstantsLocators.ALL_SUGGESTS)
@@ -40,6 +43,10 @@ class SearchPage(BasePage):
         value_attribute = self.get_attribute_element(ConstantsLocators.ALL_SUGGESTS)
         return value_attribute
 
+    def return_data_attribute_value_in_element(self) -> str:
+        value_attribute = self.get_attribute_element(ConstantsLocators.INPUT_FIELD_TEXT, "value")
+        return value_attribute
+
     def del_one_characters_in_search_field(self) -> None:
         self.fill(ConstantsLocators.SEARCH_FIELD, Keys.BACKSPACE)
 
@@ -47,6 +54,10 @@ class SearchPage(BasePage):
     def checked_upper_case(lst: list) -> bool:
         result = all(w.isupper() for w in lst)
         return result
+
+    def click_to_X_button(self) -> None:
+        self.search_element_and_click(ConstantsLocators.BUTTON_CLEAR_SEARCH_FIELD)
+
 
     # def open_setting_search_and_switch_toogle(self):
     #     self.search_element_and_click(ConstantsLocators.SETTING_BUTTON)
