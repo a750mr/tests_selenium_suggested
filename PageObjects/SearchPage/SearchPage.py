@@ -32,7 +32,7 @@ class SearchPage(BasePage):
 
     def get_text_suggested(self) -> list:
         all_suggests = self.find_all_elements(ConstantsLocators.ALL_SUGGESTS)
-        return [element.text for element in all_suggests]
+        return [element.get_text for element in all_suggests]
 
     @staticmethod
     def word_presence_in_suggested(word, lst: list) -> bool:
