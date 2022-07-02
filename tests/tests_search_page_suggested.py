@@ -39,8 +39,9 @@ class TestsSearchPage:
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.search_with_suggested_and_click(TestDataInput.ONE_SYMBOL, 0)
-        assert app.driver.current_url != "https://go.mail.ru/", "URL has not changed"
+        assert f'https://go.mail.ru/search?q=' in app.driver.current_url, "URL has not changed. Click doesnt work"
 
+    @pytest.mark.critical_path
     def test_click_last_suggested(self, app):
         """
         1.Go to Search Page
@@ -51,8 +52,9 @@ class TestsSearchPage:
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.search_with_suggested_and_click(TestDataInput.WEATHER, 9)
-        assert app.driver.current_url != "https://go.mail.ru/", "URL has not changed"
+        assert f'https://go.mail.ru/search?q=' in app.driver.current_url, "URL has not changed. Click doesnt work"
 
+    @pytest.mark.critical_path
     def test_equal_text_in_suggested(self, app):
         """
         1.Go to Search Page
@@ -67,6 +69,7 @@ class TestsSearchPage:
         result_checked_inner_word = app.search_page.word_presence_in_suggested(TestDataInput.MOTHER, lst_suggested)
         assert result_checked_inner_word == True, "Request and suggested are different"
 
+    @pytest.mark.critical_path
     @pytest.mark.xfail
     def test_modification_field_from_delete_character(self, app):
         """
@@ -85,6 +88,7 @@ class TestsSearchPage:
         assert lst_after_suggested != lst_before_suggested, "Does not change suggested when deleting a character"
         # noqa There is no method in selenium to wait for the text in the locator to change. We have to wait for the DOM to change. That's why the test is marked with xfail
 
+    @pytest.mark.critical_path
     def test_blocked_suggested_with_only_space(self, app):
         """
         1.Go to Search Page
@@ -97,6 +101,7 @@ class TestsSearchPage:
         count_available_suggested = app.search_page.fill_data_and_get_count_suggested(TestDataInput.ONE_SPACES)
         assert count_available_suggested == TestDataInput.NULL_COUNT_SUGGESTED, "Tips are displayed when entering spaces"
 
+    @pytest.mark.critical_path
     @pytest.mark.parametrize("word", TestDataInput.POSTFIX_AND_PREFIX_WORD)
     def test_fill_data_with_postfix_and_prefix_space_in_word(self, word, app):
         """
@@ -111,6 +116,7 @@ class TestsSearchPage:
         assert count_available_suggested == TestDataInput.DEFAULT_COUNT_SUGGESTED, \
             "Tips are displayed when entering post or prefix spaces"
 
+    @pytest.mark.critical_path
     def test_available_suggested_from_two_words(self, app):
         """
         1.Go to Search Page
@@ -123,6 +129,7 @@ class TestsSearchPage:
         count_available_suggested = app.search_page.fill_data_and_get_count_suggested(TestDataInput.TWO_WORD)
         assert count_available_suggested == TestDataInput.DEFAULT_COUNT_SUGGESTED, "Two words don't show tooltip"
 
+    @pytest.mark.critical_path
     def test_dont_working_entry_uppercase(self, app):
         """
         1.Go to Search Page
@@ -136,6 +143,7 @@ class TestsSearchPage:
         lst_suggested = app.search_page.get_text_suggested()
         assert app.search_page.checked_upper_case(lst_suggested) == False, "Displays upper case instead of lower case"
 
+    @pytest.mark.critical_path
     def test_word_is_highlighted(self, app):
         """
         1.Go to Search Page
@@ -149,6 +157,7 @@ class TestsSearchPage:
         inner_html = app.search_page.checked_existence_attribute_in_element()
         assert f"<b>{TestDataInput.WEATHER}</b>" in inner_html, "Query word not highlighted"
 
+    @pytest.mark.critical_path
     @pytest.mark.parametrize("word", TestDataInput.ADULT_WORDS)
     def test_entry_adult_word(self, app, word):
         """
@@ -162,6 +171,7 @@ class TestsSearchPage:
         assert TestDataInput.NULL_COUNT_SUGGESTED == app.search_page.fill_data_and_get_count_suggested(
             word), "According to the adult hints appear"
 
+    @pytest.mark.extended
     @pytest.mark.parametrize("sym", TestDataInput.SPEC_SYMBOLS_TO_RUS)
     def test_entry_spec_symbols(self, app, sym):
         """
@@ -175,6 +185,7 @@ class TestsSearchPage:
         app.search_page.fill_data_to_search(sym)
         assert sym not in app.search_page.get_text_suggested()
 
+    @pytest.mark.critical_path
     @pytest.mark.parametrize("item, key", TestDataInput.AUTOCORRECT_ONE_AND_TWO_WORDS.items())
     def test_entry_to_autocorrect(self, app, item, key):
         """
@@ -188,6 +199,7 @@ class TestsSearchPage:
         app.search_page.fill_data_to_search(item)
         assert key in app.search_page.get_text_suggested()
 
+    @pytest.mark.critical_path
     def test_available_suggested_from_long_words(self, app):
         """
         1.Go to Search Page
@@ -200,6 +212,7 @@ class TestsSearchPage:
         count_available_suggested = app.search_page.fill_data_and_get_count_suggested(TestDataInput.LONG_WORD)
         assert count_available_suggested == TestDataInput.DEFAULT_COUNT_SUGGESTED, "Long word don't show tooltip"
 
+    @pytest.mark.critical_path
     def test_fill_data_and_delete_checked_field_empty(self, app):
         """
         1.Go to Search Page
@@ -212,8 +225,6 @@ class TestsSearchPage:
         app.search_page.fill_data_to_search(TestDataInput.WEATHER)
         app.search_page.click_to_X_button()
         assert app.search_page.return_data_attribute_value_in_element() == '', "Search field is not empty"
-
-
 
     # def test_working_toogle_delete_history(self, app):
     #     """
