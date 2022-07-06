@@ -258,3 +258,20 @@ class TestsSearchPage:
         app.search_page.click_field_search()
         count_available_suggested = app.search_page.fill_data_and_get_count_suggested(TestDataInput.HIEROGLYPH)
         assert count_available_suggested == TestDataInput.NULL_COUNT_SUGGESTED, "Tips are displayed when entering spaces"
+
+    def test_checked_work_search_with_push_key_enter(self, app):
+        """
+        1.Open Search Page
+        2.Clicked on input field
+        3.Fill data
+        4.Press key ENTER
+        4.Equal page has changed
+        """
+        app.search_page.open_search_page()
+        app.search_page.click_field_search()
+        app.search_page.fill_data_to_search(TestDataInput.PEACE)
+        app.search_page.press_key_enter()
+        assert f'https://go.mail.ru/search?q=' in app.driver.current_url
+
+
+
