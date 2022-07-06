@@ -1,5 +1,7 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver import Keys
 
 
 class BasePage:
@@ -62,6 +64,9 @@ class BasePage:
     @staticmethod
     def click(locator):
         locator.click()
+
+    def send_keys(self, value):
+        self.send_keys(value)
 
     def text(self, locator, wait_time=10) -> str:
         """
