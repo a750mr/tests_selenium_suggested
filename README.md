@@ -1,1 +1,20 @@
-# tests_selenium_suggested
+##**With this project, I wanted to show my skills in auto-testing. These tests do not cover full functionality testing. But show extensive knowledge of python. Also, an add-on could attach Allure**
+
+**The project uses a stack:**
+
+- `Python 3.9, Pytest 7.1.2, Selenium 4.2.0, Page Object pattern, Docker, Jenkins`
+
+**How to start:**
+
+Use Python 3.9 + Create and activate virtual environments
+
+`python3 -m venv env
+source env/bin/activate`
+
+Run in terminal
+
+`pip install -r requirements.txt`
+
+and start all tests
+
+`pytest -s -v .\tests\tests_search_page_suggested.py`
