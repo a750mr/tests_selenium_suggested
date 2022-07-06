@@ -33,7 +33,7 @@ class TestsSearchPage:
         4.Equal page has changed
         """
         logger.info(
-            f"Entry to search one symbol and click first elements in suggested. Checked page not equal start page. Data: "
+            f"Entry to search one symbol and click first elements in suggested. Checked page not equal start page.Data:"
             f"{TestDataInput.ONE_SYMBOL}")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
@@ -74,7 +74,8 @@ class TestsSearchPage:
         assert result_checked_inner_word == True, "Word presence and suggested are different"
 
     @pytest.mark.critical_path
-    @pytest.mark.xfail
+    @pytest.mark.xfail(reason="There is no method in selenium to wait for the text in the locator to change. "
+                              "We have to wait for the DOM to change.")
     def test_modification_field_from_delete_character(self, app):
         """
         1.Open Search Page
@@ -92,7 +93,6 @@ class TestsSearchPage:
         app.search_page.del_one_characters_in_search_field()
         lst_after_suggested = app.search_page.get_text_suggested()
         assert lst_after_suggested != lst_before_suggested, "Does not change suggested when deleting a character"
-        # noqa There is no method in selenium to wait for the text in the locator to change. We have to wait for the DOM to change. That's why the test is marked with xfail
 
     @pytest.mark.critical_path
     def test_blocked_suggested_with_only_space(self, app):
@@ -146,12 +146,12 @@ class TestsSearchPage:
         3.Fill data
         4.Equal suggested dont have uppercase
         """
-        logger.info(f"Entry {TestDataInput.UPPERCASE}. Check suggested dont have uppercase sym.")
+        logger.info(f"Entry {TestDataInput.UPPERCASE}. Check suggested dont have uppercase symbols")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.fill_data_to_search(TestDataInput.UPPERCASE)
         lst_suggested = app.search_page.get_text_suggested()
-        assert app.search_page.checked_upper_case(lst_suggested) == False, "Displays upper case instead of lower case"
+        assert app.search_page.checked_upper_case(lst_suggested) is False, "Displays upper case instead of lower case"
 
     @pytest.mark.critical_path
     def test_word_is_highlighted(self, app):
@@ -258,4 +258,3 @@ class TestsSearchPage:
         app.search_page.click_field_search()
         count_available_suggested = app.search_page.fill_data_and_get_count_suggested(TestDataInput.HIEROGLYPH)
         assert count_available_suggested == TestDataInput.NULL_COUNT_SUGGESTED, "Tips are displayed when entering spaces"
-
