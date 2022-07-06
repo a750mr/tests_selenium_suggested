@@ -5,10 +5,12 @@ class ConstantsLocators:
     SEARCH_FIELD = (By.XPATH, "//*[@id='MSearch']/input[1]")
     ALL_SUGGESTS = (By.CSS_SELECTOR, ".DesktopSuggests-row")
     SETTING_BUTTON = (By.CSS_SELECTOR, '//*[@id="js-main-page"]/div/div/div[1]/div[2]/div[2]/div/div')
+    TOOGLE_SWITCH_HISTORY = (By.CSS_SELECTOR, '.Toogler-switch Toogler-checked')
     TOOGLE_DELETE_HISTORY = (
         By.CSS_SELECTOR, '//*[@id="js-main-page"]/div/div/div[1]/div[2]/div[2]/div/div[2]/div/label/div[1]')
     BUTTON_CLEAR_SEARCH_FIELD = (By.CSS_SELECTOR, ".Button-value")
     INPUT_FIELD_TEXT = (By.CSS_SELECTOR, "#MSearch > input.DesktopInput-input.DesktopInput-preWrappedWhiteSpace")
+
 
 
 class TestDataInput:
@@ -28,3 +30,4 @@ class TestDataInput:
                                      "пивет сосд": "привет сосед"}
     POSTFIX_AND_PREFIX_WORD = ["     программа", "программа     "]
     HIEROGLYPH = "描摹; 临摹; 复写; 复制"
+    PEACE = "мир"
