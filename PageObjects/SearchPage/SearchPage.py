@@ -1,4 +1,5 @@
 from selenium.webdriver import Keys
+
 from PageObjects.BasePage import BasePage
 from fixtures.constans import ConstantsLocators
 import logging
@@ -82,6 +83,12 @@ class SearchPage(BasePage):
         Delete one character in search page with keyboard (Button BackSPACE)
         """
         self.fill(ConstantsLocators.SEARCH_FIELD, Keys.BACKSPACE)
+
+    def press_key_enter(self) -> None:
+        """
+        Search with Key.Enter in search page with keyboard
+        """
+        self.fill(ConstantsLocators.SEARCH_FIELD, Keys.ENTER)
 
     @staticmethod
     def checked_upper_case(lst: list) -> bool:
