@@ -22,17 +22,24 @@ class BasePage:
         )
         return element
 
-    def clear(self, locator, wait_time=10):
+    def clear(self, locator, wait_time=10) -> None:
         """
-        Clear field
+        Clear to field
+        :param locator : locator(*locator, name)
+        :param wait_time: waiting time
         """
         element = self._find_element(locator, wait_time)
         element.clear()
 
     def find_all_elements(self, locator) -> list:
+        """
+        Find element. Explicit wait using
+        :param locator: locator like (BY.ID, 'name')
+        :return list all elements have this locator
+        """
         return self.app.driver.find_elements(*locator)
 
-    def fill(self, locator, value, wait_time=10):
+    def fill(self, locator, value, wait_time=10) -> None:
         """
         Fill element == send_keys
         :param locator: locator(*locator,name)
@@ -43,9 +50,11 @@ class BasePage:
         if value:
             element.send_keys(value)
 
-    def search_element_and_click(self, locator, wait_time=10):
+    def search_element_and_click(self, locator, wait_time=10) -> None:
         """
         Click on Element
+        :param locator : locator(*locator, name)
+        :param wait_time: waiting time
         """
         element = self._find_element(locator, wait_time)
         element.click()
@@ -57,11 +66,18 @@ class BasePage:
     def text(self, locator, wait_time=10) -> str:
         """
         Get text in element
+        :param locator : locator(*locator, name)
+        :param wait_time: waiting time
         """
         element = self._find_element(locator, wait_time)
         return element.text
 
     def get_attribute_element(self, locator, attribute: str = "innerHTML"):
+        """
+        Find attribute in locator. Default fiend "innerHTML"
+        :param locator: locator(*locator, name)
+        :param attribute: attribute locator in html
+        """
         element = self._find_element(locator)
         if element:
             return element.get_attribute(attribute)

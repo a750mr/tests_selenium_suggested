@@ -168,6 +168,7 @@ class TestsSearchPage:
         inner_html = app.search_page.checked_existence_attribute_in_element()
         assert f"<b>{TestDataInput.WEATHER}</b>" in inner_html, "Query word not highlighted"
 
+    @pytest.mark.negative
     @pytest.mark.critical_path
     @pytest.mark.parametrize("word", TestDataInput.ADULT_WORDS)
     def test_entry_adult_word(self, app, word):
@@ -243,6 +244,7 @@ class TestsSearchPage:
         app.search_page.click_to_X_button()
         assert app.search_page.return_data_attribute_value_in_element() == '', "Search field is not empty"
 
+    @pytest.mark.negative
     @pytest.mark.critical_path
     def test_blocked_suggested_with_hieroglyph(self, app):
         """
