@@ -27,3 +27,4 @@ class TestDataInput:
     AUTOCORRECT_ONE_AND_TWO_WORDS = {"пивет": "привет",
                                      "пивет сосд": "привет сосед"}
     POSTFIX_AND_PREFIX_WORD = ["     программа", "программа     "]
+    HIEROGLYPH = "描摹; 临摹; 复写; 复制"
