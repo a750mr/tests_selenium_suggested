@@ -1,4 +1,4 @@
-##**With this project, I wanted to show my skills in auto-testing. These tests do not cover full functionality testing. But show extensive knowledge of python. Also, an add-on could attach Allure**
+**With this project, I wanted to show my skills in auto-testing. These tests do not cover full functionality testing. But show extensive knowledge of python. Also, an add-on could attach Allure**
 
 **The project uses a stack:**
 
