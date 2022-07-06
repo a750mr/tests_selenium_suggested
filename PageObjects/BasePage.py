@@ -54,12 +54,12 @@ class BasePage:
     def click(locator):
         locator.click()
 
-    def get_text(self, locator, wait_time=10) -> str:
+    def text(self, locator, wait_time=10) -> str:
         """
         Get text in element
         """
         element = self._find_element(locator, wait_time)
-        return element.get_text
+        return element.text
 
     def get_attribute_element(self, locator, attribute: str = "innerHTML"):
         element = self._find_element(locator)
