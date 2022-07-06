@@ -18,3 +18,7 @@ Run in terminal
 and start all tests
 
 `pytest -s -v .\tests\tests_search_page_suggested.py`
+
+**Addition:**
+
+_I write tests through the app because it shortens the declaration of the pages, it is more intuitive for me_
