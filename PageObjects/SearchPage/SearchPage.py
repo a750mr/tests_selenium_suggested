@@ -32,7 +32,7 @@ class SearchPage(BasePage):
 
     def get_text_suggested(self) -> list:
         all_suggests = self.find_all_elements(ConstantsLocators.ALL_SUGGESTS)
-        return [element.get_text for element in all_suggests]
+        return [element.text for element in all_suggests]
 
     @staticmethod
     def word_presence_in_suggested(word, lst: list) -> bool:
@@ -57,8 +57,3 @@ class SearchPage(BasePage):
 
     def click_to_X_button(self) -> None:
         self.search_element_and_click(ConstantsLocators.BUTTON_CLEAR_SEARCH_FIELD)
-
-
-    # def open_setting_search_and_switch_toogle(self):
-    #     self.search_element_and_click(ConstantsLocators.SETTING_BUTTON)
-    #     self.search_element_and_click(ConstantsLocators.TOOGLE_DELETE_HISTORY)
