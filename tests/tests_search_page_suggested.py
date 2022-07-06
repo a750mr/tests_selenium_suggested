@@ -6,16 +6,15 @@ logger = logging.getLogger("tests")
 
 
 class TestsSearchPage:
-
     @pytest.mark.smoke
     def test_smoked_functional(self, app):
         """
         1.Go to Search Page
         2.Clicked on input field
-        3.Return available suggested
+        3.Fill data and return available suggested
         4.Search with text and number suggest to click
         5.Equal count suggests
-        6.Equal other link
+        6.Equal page has changed
         """
         logger.info(f"Smoked tests: open search page, fill data, click 4 suggest. Data input: {TestDataInput.WEATHER}")
         app.search_page.open_search_page()
@@ -31,10 +30,10 @@ class TestsSearchPage:
         1.Go to Search Page
         2.Clicked on input field
         3.Search with text and number suggest to click
-        4.Equal other link
+        4.Equal page has changed
         """
         logger.info(
-            f"Entry one symbol and click first elements in suggested. Checked page not equal start pages. Data: "
+            f"Entry to search one symbol and click first elements in suggested. Checked page not equal start page. Data: "
             f"{TestDataInput.ONE_SYMBOL}")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
@@ -44,11 +43,13 @@ class TestsSearchPage:
     @pytest.mark.critical_path
     def test_click_last_suggested(self, app):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
-        3.Search with text and number suggest to click
-        4.Equal other link
+        3.Search with text and click last suggest
+        4.Equal page has changed
         """
+        logger.info(
+            f"Entry to search {TestDataInput.WEATHER} and click last element in suggested. Checked page not equal start page.")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.search_with_suggested_and_click(TestDataInput.WEATHER, 9)
@@ -57,28 +58,33 @@ class TestsSearchPage:
     @pytest.mark.critical_path
     def test_equal_text_in_suggested(self, app):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
-        3.Search with text and number suggest to click
-        4.Equal other link
+        3.Fill data to search field
+        4.Getting text in suggested
+        5.Equal word presence in suggested
         """
+        logger.info(
+            f"Entry to search {TestDataInput.MOTHER}. Checked suggested have word presence")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.fill_data_to_search(TestDataInput.MOTHER)
         lst_suggested = app.search_page.get_text_suggested()
         result_checked_inner_word = app.search_page.word_presence_in_suggested(TestDataInput.MOTHER, lst_suggested)
-        assert result_checked_inner_word == True, "Request and suggested are different"
+        assert result_checked_inner_word == True, "Word presence and suggested are different"
 
     @pytest.mark.critical_path
     @pytest.mark.xfail
     def test_modification_field_from_delete_character(self, app):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
         3.Fill data and get text suggested
         4.Del symbols in search
         5.Get suggested and equal to before
         """
+        logger.info(
+            f"Entry to search {TestDataInput.HELL}. Checked suggested refactoring from delete one symbols")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.fill_data_to_search(TestDataInput.HELL)
@@ -91,11 +97,12 @@ class TestsSearchPage:
     @pytest.mark.critical_path
     def test_blocked_suggested_with_only_space(self, app):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
         3.Get count suggested
-        4.Equal available and expected
+        4.Equal available and expected count suggested
         """
+        logger.info(f"Entry to search only spaces and checked suggested not visibility")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         count_available_suggested = app.search_page.fill_data_and_get_count_suggested(TestDataInput.ONE_SPACES)
@@ -105,11 +112,12 @@ class TestsSearchPage:
     @pytest.mark.parametrize("word", TestDataInput.POSTFIX_AND_PREFIX_WORD)
     def test_fill_data_with_postfix_and_prefix_space_in_word(self, word, app):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
-        3.Fill data
-        4.Equal available suggested
+        3.Get count suggested
+        4.Equal available and expected count suggested
         """
+        logger.info(f"Entry {word} from prefix or postfix space and checked suggested visibility")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         count_available_suggested = app.search_page.fill_data_and_get_count_suggested(word)
@@ -119,11 +127,12 @@ class TestsSearchPage:
     @pytest.mark.critical_path
     def test_available_suggested_from_two_words(self, app):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
         3.Get count suggested
-        4.Equal available and expected
+        4.Equal available and expected count suggested
         """
+        logger.info(f"Entry {TestDataInput.TWO_WORD} for two word in search. Check available suggested")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         count_available_suggested = app.search_page.fill_data_and_get_count_suggested(TestDataInput.TWO_WORD)
@@ -132,11 +141,12 @@ class TestsSearchPage:
     @pytest.mark.critical_path
     def test_dont_working_entry_uppercase(self, app):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
         3.Fill data
-        4.Equal avialible suggested for uppercase checked
+        4.Equal suggested dont have uppercase
         """
+        logger.info(f"Entry {TestDataInput.UPPERCASE}. Check suggested dont have uppercase sym.")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.fill_data_to_search(TestDataInput.UPPERCASE)
@@ -146,11 +156,12 @@ class TestsSearchPage:
     @pytest.mark.critical_path
     def test_word_is_highlighted(self, app):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
         3.Fill data
         4.Equal element have <b> attribute
         """
+        logger.info(f"Entry any word and checked word in suggested have <b> attribute")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.fill_data_to_search(TestDataInput.WEATHER)
@@ -161,11 +172,12 @@ class TestsSearchPage:
     @pytest.mark.parametrize("word", TestDataInput.ADULT_WORDS)
     def test_entry_adult_word(self, app, word):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
         3.Fill data
-        4.Equal miss suggested for search adult
+        4.Equal suggested doesn't have available for search adult
         """
+        logger.info(f"Entry {word} and checked suggested dont visibility")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         assert TestDataInput.NULL_COUNT_SUGGESTED == app.search_page.fill_data_and_get_count_suggested(
@@ -175,11 +187,12 @@ class TestsSearchPage:
     @pytest.mark.parametrize("sym", TestDataInput.SPEC_SYMBOLS_TO_RUS)
     def test_entry_spec_symbols(self, app, sym):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
         3.Fill data
-        4.Equal miss suggested for search spec symbols
+        4.Equal suggested doesn't have available for search spec symbols == has changed to russian sym
         """
+        logger.info(f"Entry {sym} and checked this spec-sym changed to RUS sym")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.fill_data_to_search(sym)
@@ -189,11 +202,12 @@ class TestsSearchPage:
     @pytest.mark.parametrize("item, key", TestDataInput.AUTOCORRECT_ONE_AND_TWO_WORDS.items())
     def test_entry_to_autocorrect(self, app, item, key):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
         3.Fill data
-        4.Equal miss suggested for search spec symbols
+        4.Equal entry word auto-corrected
         """
+        logger.info(f"Entry words and checked auto-corrected")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.fill_data_to_search(item)
@@ -202,11 +216,12 @@ class TestsSearchPage:
     @pytest.mark.critical_path
     def test_available_suggested_from_long_words(self, app):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
         3.Get count suggested
-        4.Equal available and expected
+        4.Equal available and expected count suggested
         """
+        logger.info(f"Entry {TestDataInput.LONG_WORD} and check have this word in suggested")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         count_available_suggested = app.search_page.fill_data_and_get_count_suggested(TestDataInput.LONG_WORD)
@@ -215,30 +230,30 @@ class TestsSearchPage:
     @pytest.mark.critical_path
     def test_fill_data_and_delete_checked_field_empty(self, app):
         """
-        1.Go to Search Page
+        1.Open Search Page
         2.Clicked on input field
-        3.Get count suggested
-        4.Equal available and expected
+        3.Fill data
+        4.Click to delete field button
+        4.Equal field has empty
         """
+        logger.info(f"Entry word and click to delete field button and check field search has empty")
         app.search_page.open_search_page()
         app.search_page.click_field_search()
         app.search_page.fill_data_to_search(TestDataInput.WEATHER)
         app.search_page.click_to_X_button()
         assert app.search_page.return_data_attribute_value_in_element() == '', "Search field is not empty"
 
-    # def test_working_toogle_delete_history(self, app):
-    #     """
-    #     1.Go to Search Page
-    #     2.Clicked on input field
-    #     3.Fill data
-    #     4.Get before suggested
-    #     5.Switch toogle setting history
-    #     6.Get after suggested and assert to before
-    #     """
-    #     app.search_page.open_search_page()
-    #     app.search_page.click_field_search()
-    #     app.search_page.fill_data_to_search(TestData.DATA_WEATHER)
-    #     lst_before_suggested = app.search_page.get_text_suggested()
-    #     app.search_page.open_setting_search_and_switch_toogle()
-    #     lst_after_suggested = app.search_page.get_text_suggested()
-    #     assert lst_after_suggested != lst_before_suggested, "The two lists correspond to each other"
+    @pytest.mark.critical_path
+    def test_blocked_suggested_with_hieroglyph(self, app):
+        """
+        1.Open Search Page
+        2.Clicked on input field
+        3.Get count suggested
+        4.Equal available and expected count suggested
+        """
+        logger.info(f"Entry to search hieroglyph and checked suggested not visibility")
+        app.search_page.open_search_page()
+        app.search_page.click_field_search()
+        count_available_suggested = app.search_page.fill_data_and_get_count_suggested(TestDataInput.HIEROGLYPH)
+        assert count_available_suggested == TestDataInput.NULL_COUNT_SUGGESTED, "Tips are displayed when entering spaces"
+
