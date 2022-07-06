@@ -1,3 +1,5 @@
+![t](https://software-testing.ru/images/stories/library/web-test-using-selenium/1.jpg)
+
 **With this project, I wanted to show my skills in auto-testing. These tests do not cover full functionality testing. But show extensive knowledge of python. Also, an add-on could attach Allure**
 
 Сhecklist - https://docs.google.com/spreadsheets/d/1pExGGnn-ZMs35GDugt6KB17atoSUQvYJqK-DQeurc4E/edit#gid=877360195
